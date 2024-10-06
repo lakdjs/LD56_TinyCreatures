@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && _characterController.isGrounded)
+        if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded)
         {
             _velocity.y = Mathf.Sqrt(_jumpForce * 2f * _gravity);
         }
