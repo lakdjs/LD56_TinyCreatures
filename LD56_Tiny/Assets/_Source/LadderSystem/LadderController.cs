@@ -10,7 +10,7 @@ public class LadderController : MonoBehaviour
 
     private void Update()
     {
-        characterController.enabled = true;
+        
         moveDir = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
         moveDir = transform.TransformDirection(moveDir);
         moveDir *= speed;
