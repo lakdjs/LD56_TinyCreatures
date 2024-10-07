@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _gravity = 9.8f;
     [SerializeField] private float _mouseSensitivity = 200f;
     [SerializeField] private List <Scrollbar>  scrollbars;
-    [SerializeField] private int[] jumpForceRange;
+    [SerializeField] private List<JumpForceRanges> jumpForceRange;
 
 
     private CharacterController _characterController;
@@ -91,13 +91,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
         {
             index = rand.Next(0, scrollbars.Count);
-            Debug.Log(index);
+            
         }
         if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded )
         {
             
             scrollbars[index].gameObject.active = true;
-            Debug.Log(scrollbars[index]);
+            
             if (movingValueRight)
             {
                 nextActionTime = nextActionTime + Time.deltaTime;
@@ -113,9 +113,11 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.Space) && _characterController.isGrounded)
         {
+            
             scrollbars[index].gameObject.active = false;
-            Debug.Log(nextActionTime);
-            _velocity.y = Mathf.Sqrt(_jumpForce * nextActionTime * _gravity);
+            _jumpForce = jumpForceRange[index].GetScrollValue();
+            Debug.Log(_jumpForce);
+            _velocity.y = Mathf.Sqrt(_jumpForce  * _gravity);
             nextActionTime = 0f;
         }
     }
