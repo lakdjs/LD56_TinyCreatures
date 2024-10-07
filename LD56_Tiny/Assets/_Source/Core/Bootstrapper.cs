@@ -24,8 +24,8 @@ public class Bootstrapper : MonoBehaviour
             item.active = false;
         }
         characterController.enabled = true;
-        _playerMovement = new PlayerMovement(player.PlayerSpeed, player.PlayerRb, player.PlayerJumpForce);
-        inputListener.Construct(player, _playerMovement, characterController, cameraTransform);
+       // _playerMovement = new PlayerMovement(player.PlayerSpeed, player.PlayerRb, player.PlayerJumpForce);
+       // inputListener.Construct(player, _playerMovement, characterController, cameraTransform);
 
     }
 }

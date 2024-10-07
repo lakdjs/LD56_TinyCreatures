@@ -18,6 +18,7 @@ public class LadderStates : MonoBehaviour
     {
         if(other.CompareTag("Ladder"))
         {
+            Debug.Log("Ladder");
             state1 = !state1;
             state2 = !state2;
             controller.enabled = false;
@@ -28,6 +29,7 @@ public class LadderStates : MonoBehaviour
     {
         if(other.CompareTag("Ladder"))
         {
+            
             controller.enabled = true;
             ladderController.enabled = false;
         }

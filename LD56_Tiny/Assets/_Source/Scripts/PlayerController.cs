@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _mouseSensitivity = 200f;
     [SerializeField] private List <Scrollbar>  scrollbars;
     [SerializeField] private List<JumpForceRanges> jumpForceRange;
+    [SerializeField] private Animator animator;
+    
 
 
     private CharacterController _characterController;
@@ -23,9 +25,14 @@ public class PlayerController : MonoBehaviour
     private float period = 0.1f;
     private float nextActionTime = 0.0f;
 
+    private float moveX = 0;
+    private float moveZ = 0;
+
     static System.Random rand = new System.Random();
     int index = 0;
     bool movingValueRight = true;
+
+    bool isRunning = false;
 
     void Start()
     {
@@ -38,6 +45,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(isRunning)
+        {
+            scrollbars[index].gameObject.active = false;
+        }
+        if(moveX != 0 || moveZ != 0)
+        {
+            isRunning = true;
+            animator.SetBool("IsRunning", isRunning);
+        }
+        else
+        {
+            isRunning = false;
+            animator.SetBool("IsRunning", isRunning);
+        }
+
         if (scrollbars[index].value <= 0)
         {
             movingValueRight = true;
@@ -53,8 +75,8 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+         moveX = Input.GetAxis("Horizontal");
+         moveZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
@@ -87,38 +109,48 @@ public class PlayerController : MonoBehaviour
 
     private void JumpScale()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
+        if(_characterController.isGrounded && isRunning == false)
         {
-            index = rand.Next(0, scrollbars.Count);
-            
-        }
-        if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded )
-        {
-            
-            scrollbars[index].gameObject.active = true;
-            
-            if (movingValueRight)
+            if (Input.GetKeyDown(KeyCode.Space) )
             {
-                nextActionTime = nextActionTime + Time.deltaTime;
-                scrollbars[index].value = nextActionTime;
+                index = rand.Next(0, scrollbars.Count);
+
             }
-            else
+            if (Input.GetKey(KeyCode.Space))
             {
-                nextActionTime = nextActionTime - Time.deltaTime;
-                scrollbars[index].value = nextActionTime;
+
+                scrollbars[index].gameObject.active = true;
+
+                if (movingValueRight)
+                {
+                    nextActionTime = nextActionTime + Time.deltaTime;
+                    scrollbars[index].value = nextActionTime;
+                }
+                else
+                {
+                    nextActionTime = nextActionTime - Time.deltaTime;
+                    scrollbars[index].value = nextActionTime;
+                }
+
             }
 
-        }
+            if (Input.GetKeyUp(KeyCode.Space) )
+            {
 
-        if(Input.GetKeyUp(KeyCode.Space) && _characterController.isGrounded)
-        {
-            
-            scrollbars[index].gameObject.active = false;
-            _jumpForce = jumpForceRange[index].GetScrollValue();
-            Debug.Log(_jumpForce);
-            _velocity.y = Mathf.Sqrt(_jumpForce  * _gravity);
-            nextActionTime = 0f;
+                scrollbars[index].gameObject.active = false;
+                _jumpForce = jumpForceRange[index].GetScrollValue();
+                Debug.Log(_jumpForce);
+
+                _velocity.y = Mathf.Sqrt(_jumpForce * _gravity);
+                nextActionTime = 0f;
+            }
         }
+        /*else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
+            {
+                _velocity.y = Mathf.Sqrt(5f * _gravity);
+            }
+        }*/
     }
 }

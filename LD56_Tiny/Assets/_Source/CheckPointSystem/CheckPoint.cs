@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class CheckPoint : MonoBehaviour
 {
     static Vector3 lastCheckpointPosition = Vector3.zero;
-    [SerializeField] Transform playerTransform;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private CharacterController characterController;
 
     private void Update()
     {
@@ -26,10 +27,10 @@ public class CheckPoint : MonoBehaviour
     {
         if (lastCheckpointPosition != Vector3.zero)
         {
-            GetComponent<CharacterController>().enabled = false;
+            characterController.enabled = false;
             Debug.Log("Teleport");
-            playerTransform.position = new Vector3( lastCheckpointPosition.x, lastCheckpointPosition.y + 1, lastCheckpointPosition.z) ;
-            GetComponent<CharacterController>().enabled = true;
+            playerTransform.position = new Vector3( lastCheckpointPosition.x, lastCheckpointPosition.y + 2, lastCheckpointPosition.z) ;
+            characterController.enabled = true;
         }
     }
     private void OnTriggerEnter(Collider other)
