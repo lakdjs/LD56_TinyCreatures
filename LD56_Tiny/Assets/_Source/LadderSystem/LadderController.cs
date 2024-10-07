@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class LadderController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private CharacterController characterController;
+    private Vector3 moveDir = Vector3.zero;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        characterController.enabled = true;
+        moveDir = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"),0);
+        moveDir = transform.TransformDirection(moveDir);
+        moveDir *= speed;
+
+        characterController.Move(moveDir * Time.deltaTime);
     }
 }
