@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     private Transform _cameraTransform;
 
+    private float period = 0.1f;
+    private float nextActionTime = 0.0f;
+
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -25,7 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         LookAround();
-        Jump();
+        JumpScale();
     }
 
     private void Move()
@@ -62,11 +65,19 @@ public class PlayerController : MonoBehaviour
         _cameraTransform.localRotation = Quaternion.Euler(_verticalLookRotation, 0f, 0f);
     }
 
-    private void Jump()
+    private void JumpScale()
     {
+        
         if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded)
         {
-            _velocity.y = Mathf.Sqrt(_jumpForce * 2f * _gravity);
+           nextActionTime = nextActionTime + Time.deltaTime;
+           
+        }
+        if(Input.GetKeyUp(KeyCode.Space) && _characterController.isGrounded)
+        {
+            Debug.Log(nextActionTime);
+            _velocity.y = Mathf.Sqrt(2f * nextActionTime * _gravity);
+            nextActionTime = 0f;
         }
     }
 }
