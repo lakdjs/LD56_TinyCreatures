@@ -145,12 +145,12 @@ public class PlayerController : MonoBehaviour
                 nextActionTime = 0f;
             }
         }
-        /*else
+        else
         {
             if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
             {
-                _velocity.y = Mathf.Sqrt(5f * _gravity);
+                _velocity.y = Mathf.Sqrt(15 * _gravity);
             }
-        }*/
+        }
     }
 }
