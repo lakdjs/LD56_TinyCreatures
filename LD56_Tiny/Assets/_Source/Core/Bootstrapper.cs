@@ -17,6 +17,7 @@ public class Bootstrapper : MonoBehaviour
 
     private void SetUpGame()
     {
+        characterController.enabled = true;
         _playerMovement = new PlayerMovement(player.PlayerSpeed, player.PlayerRb, player.PlayerJumpForce);
         inputListener.Construct(player, _playerMovement, characterController, cameraTransform);
 
