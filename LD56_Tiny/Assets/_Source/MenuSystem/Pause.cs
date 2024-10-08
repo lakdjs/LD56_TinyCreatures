@@ -9,26 +9,32 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && _isPaused == false)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            panel.SetActive(true);
-            _isPaused = true;
-            Time.timeScale = 0;
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && _isPaused == true)
-        {
-            panel.SetActive(false);
-            _isPaused = false;
-            Time.timeScale = 1;
-
+            if (_isPaused)
+            {
+               Continue();
+            }
+            else
+            {
+               PauseGame();
+            }
         }
     }
-    public void Play()
+    public void Continue()
     {
-        Time.timeScale = 1;
-        _isPaused = false;
         panel.SetActive(false);
-        
-        
+        Time.timeScale = 1f;
+        _isPaused = false;
+        Debug.Log("continue");
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void PauseGame()
+    {
+        panel.SetActive(true);
+        Time.timeScale = 0f;
+        _isPaused = true;
+        Debug.Log("pause");
+        Cursor.lockState = CursorLockMode.None;
     }
 }

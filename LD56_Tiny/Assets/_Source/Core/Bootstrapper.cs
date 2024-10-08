@@ -19,6 +19,7 @@ public class Bootstrapper : MonoBehaviour
 
     private void SetUpGame()
     {
+        Time.timeScale = 1.0f;
         foreach (GameObject item in scrollbars)
         {
             item.active = false;
