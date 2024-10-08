@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     bool movingValueRight = true;
 
     bool isRunning = false;
+    bool isJumping = false;
 
     public void Construct(Health health)
     {
@@ -61,17 +62,36 @@ public class PlayerController : MonoBehaviour
         {
             scrollbars[index].gameObject.active = false;
         }
-        if(moveX != 0 || moveZ != 0)
+        if (moveX != 0 || moveZ != 0)
         {
-            isRunning = true;
+            if (_characterController.isGrounded)
+            {
+                isRunning = true;
+                isJumping = false;
+            }
+            else
+            {
+                isRunning = false;
+                isJumping = true;
+            }
             animator.SetBool("IsRunning", isRunning);
+            animator.SetBool("IsJumping", isJumping);
         }
         else
         {
-            isRunning = false;
+            if(_characterController.isGrounded == false)
+            {
+                isRunning = false;
+                isJumping = true;
+            }
+            else
+            {
+                isRunning = false;
+                isJumping = false;
+            }
             animator.SetBool("IsRunning", isRunning);
+            animator.SetBool("IsJumping", isJumping);
         }
-
         if (scrollbars[index].value <= 0)
         {
             movingValueRight = true;
@@ -155,6 +175,10 @@ public class PlayerController : MonoBehaviour
 
                 _velocity.y = Mathf.Sqrt(_jumpForce * _gravity);
                 nextActionTime = 0f;
+                animator.SetBool("IsJumping", true);
+                animator.SetBool("IsRunning", false);
+                isRunning = false;
+                isJumping = true;
             }
         }
         else
@@ -162,6 +186,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded)
             {
                 _velocity.y = Mathf.Sqrt(15 * _gravity);
+                animator.SetBool("IsJumping", true);
+                animator.SetBool("IsRunning", false);
+                isRunning = false;
+                isJumping = true;
             }
         }
     }
