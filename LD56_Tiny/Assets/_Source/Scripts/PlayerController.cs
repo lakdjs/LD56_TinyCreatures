@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
+            if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded)
             {
                 _velocity.y = Mathf.Sqrt(15 * _gravity);
             }
