@@ -8,6 +8,7 @@ public class LadderStates : MonoBehaviour
     private bool state2 = false;
     [SerializeField] private PlayerController controller;
     [SerializeField] private LadderController ladderController;
+    [SerializeField] private Animator animator;
 
     private void Start()
     {
@@ -23,13 +24,18 @@ public class LadderStates : MonoBehaviour
             state2 = !state2;
             controller.enabled = false;
             ladderController.enabled = true;
+            animator.SetBool("IsClimbing", true);
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsJumping", false);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Ladder"))
         {
-            
+            animator.SetBool("IsClimbing", false);
+            animator.SetBool("IsRunning", true);
+            animator.SetBool("IsJumping", true);
             controller.enabled = true;
             ladderController.enabled = false;
         }
