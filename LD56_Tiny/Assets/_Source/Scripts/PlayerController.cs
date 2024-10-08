@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List <Scrollbar>  scrollbars;
     [SerializeField] private List<JumpForceRanges> jumpForceRange;
     [SerializeField] private Animator animator;
+
+    private Health _health;
     
 
 
@@ -34,6 +36,11 @@ public class PlayerController : MonoBehaviour
 
     bool isRunning = false;
 
+    public void Construct(Health health)
+    {
+        _health = health;
+    }
+
     void Start()
     {
       
@@ -45,6 +52,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            _health.AddScore(-1);
+        }
+
         if(isRunning)
         {
             scrollbars[index].gameObject.active = false;
