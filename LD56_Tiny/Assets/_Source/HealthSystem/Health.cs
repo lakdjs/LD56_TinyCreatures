@@ -19,7 +19,6 @@ public class Health
     }
     public void SetUpScore()
     {
-        Debug.Log("1");
         HealthValue = StartValue;
         OnHealthChange?.Invoke(HealthValue);
     }
