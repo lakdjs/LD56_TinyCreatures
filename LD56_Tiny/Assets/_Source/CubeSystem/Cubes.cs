@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cubes : MonoBehaviour
 {
     [SerializeField] private LayerMask playerMask;
+    [SerializeField] private GameObject worldCanvas;
     private bool _isInRange = false;
 
     private void Update()
@@ -22,6 +23,7 @@ public class Cubes : MonoBehaviour
         if ((playerMask & (1 << other.gameObject.layer)) != 0)
         {
             _isInRange = true;
+            worldCanvas.SetActive(true);
         }
             
     }
@@ -30,6 +32,7 @@ public class Cubes : MonoBehaviour
         if ((playerMask & (1 << other.gameObject.layer)) != 0)
         {
             _isInRange = false;
+            worldCanvas.SetActive(false);
         }
     }
 }
