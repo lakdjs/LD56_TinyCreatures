@@ -252,9 +252,9 @@ MonoBehaviour:
   - 0.266
   - 0.425
   jumpForceValue:
-  - 10
-  - 20
+  - 15
   - 30
+  - 45
   thisScroll: {fileID: 7570292661170753744}
 --- !u!1 &1206889020244668080
 GameObject:
@@ -434,8 +434,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7134271026780856622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.716, y: 0}
-  m_AnchorMax: {x: 0.716, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.07208252}
   m_SizeDelta: {x: 20, y: 24.144165}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -571,7 +571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1694911957560788442
 RectTransform:
   m_ObjectHideFlags: 0
@@ -701,9 +701,9 @@ MonoBehaviour:
   - 0.679
   - 0.874
   jumpForceValue:
-  - 10
-  - 20
+  - 15
   - 30
+  - 45
   thisScroll: {fileID: 7690763947043353068}
 --- !u!1 &3859808861279560676
 GameObject:
@@ -928,9 +928,9 @@ MonoBehaviour:
   - 0.546
   - 0.727
   jumpForceValue:
-  - 10
-  - 20
+  - 15
   - 30
+  - 45
   thisScroll: {fileID: 3642953138786076614}
 --- !u!1 &9167618271030239733
 GameObject:
