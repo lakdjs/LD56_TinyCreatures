@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
+    [SerializeField] private List<GameObject> UIobjects;
     private bool _isPaused = false;
 
     void Update()
@@ -28,6 +29,10 @@ public class Pause : MonoBehaviour
         _isPaused = false;
         Debug.Log("continue");
         Cursor.lockState = CursorLockMode.Locked;
+        foreach (GameObject obj in UIobjects)
+        {
+            obj.SetActive(true);
+        }
     }
     public void PauseGame()
     {
@@ -36,5 +41,9 @@ public class Pause : MonoBehaviour
         _isPaused = true;
         Debug.Log("pause");
         Cursor.lockState = CursorLockMode.None;
+        foreach (GameObject obj in UIobjects)
+        {
+            obj.SetActive(false);
+        }
     }
 }
