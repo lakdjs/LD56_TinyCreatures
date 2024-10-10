@@ -20,6 +20,7 @@ public class Health
     public void SetUpScore()
     {
         HealthValue = StartValue;
+        PlayerPrefs.SetInt("Cubes", 3);
         OnHealthChange?.Invoke(HealthValue);
     }
 
