@@ -50,36 +50,39 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
     }
-
+    private void FixedUpdate()
+    {
+       
+    }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            _health.AddScore(-1);
-        }
 
         if(isRunning)
         {
             scrollbars[index].gameObject.active = false;
         }
+        
         if (moveX != 0 || moveZ != 0)
         {
             if (_characterController.isGrounded)
             {
                 isRunning = true;
                 isJumping = false;
+                animator.SetBool("IsRunning", isRunning);
+                animator.SetBool("IsJumping", isJumping);
             }
             else
             {
                 isRunning = false;
                 isJumping = true;
+                animator.SetBool("IsRunning", isRunning);
+                animator.SetBool("IsJumping", isJumping);
             }
-            animator.SetBool("IsRunning", isRunning);
-            animator.SetBool("IsJumping", isJumping);
+            
         }
         else
         {
-            if(_characterController.isGrounded == false)
+            if (_characterController.isGrounded == false)
             {
                 isRunning = false;
                 isJumping = true;
@@ -92,6 +95,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsRunning", isRunning);
             animator.SetBool("IsJumping", isJumping);
         }
+
         if (scrollbars[index].value <= 0)
         {
             movingValueRight = true;
@@ -100,9 +104,10 @@ public class PlayerController : MonoBehaviour
         {
             movingValueRight = false;
         }
-        Move();
-        LookAround();
         JumpScale();
+        LookAround();
+
+        Move();
     }
 
     private void Move()
@@ -116,12 +121,13 @@ public class PlayerController : MonoBehaviour
 
         if (_characterController.isGrounded)
         {
-            _velocity.y = -2f;
+            //_velocity.y = -2f;
         }
         else
         {
             _velocity.y -= _gravity * Time.deltaTime;
         }
+        
 
         _characterController.Move(_velocity * Time.deltaTime);
     }
@@ -138,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
         _cameraTransform.localRotation = Quaternion.Euler(_verticalLookRotation, 0f, 0f);
     }
-
+   
     private void JumpScale()
     {
         if(_characterController.isGrounded && isRunning == false)
@@ -171,7 +177,6 @@ public class PlayerController : MonoBehaviour
 
                 scrollbars[index].gameObject.active = false;
                 _jumpForce = jumpForceRange[index].GetScrollValue();
-                Debug.Log(_jumpForce);
 
                 _velocity.y = Mathf.Sqrt(_jumpForce * _gravity);
                 nextActionTime = 0f;
@@ -181,9 +186,9 @@ public class PlayerController : MonoBehaviour
                 isJumping = true;
             }
         }
-        else
+        else if(_characterController.isGrounded && isRunning)
         {
-            if (Input.GetKey(KeyCode.Space) && _characterController.isGrounded)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _velocity.y = Mathf.Sqrt(15 * _gravity);
                 animator.SetBool("IsJumping", true);
