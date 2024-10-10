@@ -7,14 +7,24 @@ public class Cubes : MonoBehaviour
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private GameObject worldCanvas;
     private bool _isInRange = false;
+    private CubesScore _cubeScore;
+
+    public void Construct(CubesScore cubes)
+    {
+        _cubeScore = cubes; 
+    }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            PlayerPrefs.SetInt("Cubes", PlayerPrefs.GetInt("Cubes")+1);
-            Debug.Log(PlayerPrefs.GetInt("Cubes"));
-            Destroy(gameObject);
+            if (_isInRange)
+            {
+                PlayerPrefs.SetInt("Cubes", PlayerPrefs.GetInt("Cubes") + 1);
+                Debug.Log(PlayerPrefs.GetInt("Cubes"));
+                Destroy(gameObject);
+                _cubeScore.AddScore(1);
+            }
         }
     }
 

@@ -11,6 +11,7 @@ public class HealthView : MonoBehaviour
     public void Construct(Health score)
     {
         _score = score;
+        _score.OnHealthChange += RefreshScoreText;
     }
 
     private void Start()
@@ -19,7 +20,7 @@ public class HealthView : MonoBehaviour
         {
             item.gameObject.SetActive(true);
         }
-        _score.OnHealthChange += RefreshScoreText;
+
     }
 
     void RefreshScoreText(int curScore)
